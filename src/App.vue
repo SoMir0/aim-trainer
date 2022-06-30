@@ -3,27 +3,24 @@
     data: function() {
       return {
         x: '45%',
-        y: '30%'
+        y: '30%',
+        points: 0
       }
     },
     methods: {
-     getUnits: function() {
-       console.log('gsg');
-     },
      moveCircle: function() {
        this.x = Math.floor(Math.random() * 92) + '%';
        this.y = Math.floor(Math.random() * 92) + '%';
-     }
-    },
-    beforeMount() {
-      this.getUnits();
+       this.points++;
+     },
     },
   }
 </script>
 
 <template>
-  <p class="stats">Click the red ball to start</p>
-  <div class="circle red" :style="{left: x, top: y}" v-on:click="moveCircle()"></div>
+  <p class="stats" v-if="points == 0">Click the red ball to start</p>
+  <p class="stats" v-else>Score: {{points}}</p>
+  <div class="circle red" :style="{left: x, top: y}" @click="moveCircle()"></div>
 </template>
 
 <style>
@@ -43,9 +40,8 @@ body {
 
 .circle {
   border-radius: 50%;
-  width: 50px; height: 50px;
+  width: 5vw; height: 5vh;
   position: absolute;
-  top: 50%; left: 50px;
 }
 
 .stats {
