@@ -1,6 +1,7 @@
 import { app, BrowserWindow, shell, ipcMain } from 'electron'
 import { release } from 'os'
 import { join } from 'path'
+const { Menu } = require('electron');
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -46,6 +47,8 @@ async function createWindow() {
     win.loadURL(url)
     // win.webContents.openDevTools()
   }
+
+  Menu.setApplicationMenu(null);
 
   // Test actively push message to the Electron-Renderer
   win.webContents.on('did-finish-load', () => {

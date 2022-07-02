@@ -1,6 +1,8 @@
 <script lang="ts">
-  export default {
-    data: function() {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent ({
+    data() {
       return {
         x: '45%',
         y: '30%',
@@ -17,7 +19,7 @@
         this.x = Math.floor(Math.random() * 92) + '%';
         this.y = Math.floor(Math.random() * 92) + '%';
         this.points++;
-        let newTime: Date = Date.now();
+        let newTime = Date.now();
         this.speed = newTime - this.lastTime;
         this.lastTime = newTime;
         this.precision = Math.floor((this.points/(this.misses+this.points))*100);
@@ -29,7 +31,7 @@
         this.precision = Math.floor((this.points/this.clicks)*100);
       },
     },
-  }
+  })
 </script>
 
 <template>
