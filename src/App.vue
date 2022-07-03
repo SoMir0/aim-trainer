@@ -11,7 +11,9 @@
         clicks: 0,
         lastTime: Date.now(),
         speed: 0,
-        precision: 0
+        precision: 0,
+        best: 9999999,
+        average: 0
       }
     },
     methods: {
@@ -24,6 +26,8 @@
         this.lastTime = newTime;
         this.precision = Math.floor((this.points/(this.misses+this.points))*100);
         this.clicks = this.points+this.misses;
+        if(this.speed < this.best) this.best = this.speed;
+        this.average += this.speed;
       },
       handleClick: function() {
         this.misses++;
@@ -37,6 +41,7 @@
 <template>
   <p class="stats" v-if="points == 0">Click the red ball to start</p>
   <p class="stats" v-else>Clicks: {{ clicks }}<br/>Speed: {{ speed }}ms<br/>Precision: {{ precision }}%</p>
+  <p class="pb" v-show="points != 0">Best time: {{ best }}ms<br />Average: {{ Math.floor(average/points) }}ms</p>
   <div class="circle red" :style="{left: x, top: y}" @click="moveCircle()" v-click-outside="handleClick"></div>
 </template>
 
@@ -56,7 +61,7 @@ body {
 }
 
 .circle {
-  border-radius: 50%;
+  border-radius: 15%;
   width: 5vw; height: 5vh;
   position: absolute;
 }
@@ -65,6 +70,13 @@ body {
   color: #888;
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.pb {
+  color: #888;
+  position: absolute; top: 50%; right: 5%;
+  text-align: right;
+  transform: translateY(-50%);
 }
 
 .red {
