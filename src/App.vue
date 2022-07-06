@@ -64,6 +64,7 @@
 body {
   background: #111;
   user-select: none;
+  animation: pulse 5s infinite ease-in-out;
 }
 
 #app {
@@ -93,5 +94,19 @@ body {
   position: absolute; top: 50%; right: 5%;
   text-align: right;
   transform: translateY(-50%);
+}
+
+@keyframes pulse {
+  0% {
+    background: #111;
+  }
+
+  50% {
+    background: #000;
+  }
+
+  100% {
+    background: #111;
+  }
 }
 </style>
